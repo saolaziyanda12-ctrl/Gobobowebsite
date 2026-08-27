@@ -1,0 +1,4519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Gobobo Group - Transport & Services</title>
+
+  <style>
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+
+      font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+
+      background: #1a1e24;
+      color: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    body {
+      overflow-y: auto;
+    }
+
+
+    /* =========================================================
+       TOP NAVIGATION
+    ========================================================= */
+
+    .top-nav {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 25px 50px;
+
+      background: transparent;
+
+      z-index: 2000;
+
+      pointer-events: none;
+    }
+
+    .top-nav .logo {
+      font-weight: 900;
+
+      font-size: 1.1rem;
+
+      letter-spacing: 2px;
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      text-transform: uppercase;
+
+      text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.5);
+
+      transition:
+        opacity 0.3s ease;
+
+      pointer-events: auto;
+    }
+
+    .top-nav .logo:hover {
+      opacity: 0.8;
+    }
+
+    .top-nav .logo span {
+      color: #e65100;
+    }
+
+    .top-nav ul {
+      display: flex;
+
+      list-style: none;
+
+      gap: 30px;
+
+      pointer-events: auto;
+    }
+
+    .top-nav ul li a {
+      position: relative;
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      font-size: 0.78rem;
+
+      font-weight: 600;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+
+      text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.6);
+
+      transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
+    }
+
+    .top-nav ul li a::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+
+      bottom: -7px;
+
+      width: 0;
+
+      height: 2px;
+
+      background: #e65100;
+
+      transition:
+        width 0.35s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .top-nav ul li a:hover::after,
+    .top-nav ul li a.active-link::after {
+      width: 100%;
+    }
+
+    .top-nav ul li a:hover,
+    .top-nav ul li a.active-link {
+      color: #ffffff;
+
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+
+    /* =========================================================
+       SIDE NAVIGATION
+    ========================================================= */
+
+    .side-nav {
+      position: fixed;
+
+      right: 25px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 14px;
+
+      z-index: 1000;
+    }
+
+    .side-nav a {
+      width: 12px;
+      height: 12px;
+
+      border: 2px solid #ffffff;
+
+      border-radius: 50%;
+
+      background: transparent;
+
+      transition:
+        transform 0.4s
+        cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .side-nav a.active,
+    .side-nav a:hover {
+      background: #ffffff;
+
+      transform: scale(1.35);
+
+      box-shadow:
+        0 0 0 5px rgba(255, 255, 255, 0.12),
+        0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+
+    /* =========================================================
+       GENERAL SECTION
+    ========================================================= */
+
+    section {
+      min-height: 100vh;
+
+      width: 100%;
+
+      scroll-snap-align: start;
+
+      scroll-snap-stop: always;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+
+      padding: 80px 20px 40px;
+
+      text-align: center;
+
+      position: relative;
+
+      overflow: hidden;
+
+      isolation: isolate;
+
+      /*
+       * Initial transition state
+       */
+      opacity: 0.35;
+
+      transform: scale(0.985);
+
+      transition:
+        opacity 1s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        transform 1.1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+
+      will-change:
+        opacity,
+        transform;
+    }
+
+    section.section-visible {
+      opacity: 1;
+
+      transform: scale(1);
+    }
+
+    .section-heading {
+      font-size: 3rem;
+
+      font-weight: 800;
+
+      margin-bottom: 25px;
+
+      text-transform: uppercase;
+
+      opacity: 0;
+
+      transform: translateY(45px);
+
+      transition:
+        opacity 0.9s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    section.section-visible .section-heading {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.05s;
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    #hero {
+      background: #000000;
+    }
+
+    .bg-video {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      z-index: -2;
+
+      opacity: 0.55;
+
+      transition:
+        transform 1.5s
+        cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 1s ease;
+    }
+
+    #hero.section-visible .bg-video {
+      transform: scale(1.02);
+    }
+
+    .hero-content {
+      position: relative;
+
+      z-index: 2;
+
+      max-width: 1100px;
+
+      width: 100%;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      opacity: 0;
+
+      transform:
+        translateY(35px)
+        scale(0.98);
+
+      transition:
+        opacity 1.2s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        transform 1.3s
+        cubic-bezier(0.22, 1, 0.36, 1);
+
+      transition-delay: 0.15s;
+    }
+
+    #hero.section-visible .hero-content {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+
+    /* =========================================================
+       HERO LOGO
+    ========================================================= */
+
+    .hero-logo-wrapper {
+      width: 520px;
+      height: 280px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin: 0 auto 10px;
+
+      position: relative;
+    }
+
+    .hero-logo {
+      width: 100%;
+
+      height: 100%;
+
+      display: block;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 4px 10px rgba(0, 0, 0, 0.7)
+        );
+
+      opacity: 0;
+
+      transform:
+        translateY(25px)
+        scale(0.9);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #hero.section-visible .hero-logo {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1);
+
+      transition-delay: 0.3s;
+    }
+
+    .hero-logo:hover {
+      transform: scale(1.05);
+    }
+
+
+    /* =========================================================
+       HERO TITLE
+    ========================================================= */
+
+    .hero-title {
+      font-size: 3.5rem;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      line-height: 1.15;
+
+      letter-spacing: 1px;
+
+      opacity: 0;
+
+      transform: translateY(25px);
+
+      transition:
+        opacity 1s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #hero.section-visible .hero-title {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.5s;
+    }
+
+    .hero-title span {
+      color: #e65100;
+
+      display: block;
+
+      margin: 10px 0;
+    }
+
+
+    /* =========================================================
+       LEARN MORE BUTTON
+    ========================================================= */
+
+    .btn-learn {
+      display: inline-block;
+
+      margin-top: 35px;
+
+      padding: 14px 36px;
+
+      background: #111111;
+
+      color: #ffffff;
+
+      border: 1px solid #333333;
+
+      font-weight: bold;
+
+      text-decoration: none;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+
+      opacity: 0;
+
+      transform: translateY(20px);
+
+      transition:
+        opacity 0.8s ease,
+
+        transform 0.8s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        background 0.3s ease,
+
+        border-color 0.3s ease;
+    }
+
+    #hero.section-visible .btn-learn {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.75s;
+    }
+
+    .btn-learn:hover {
+      background: #e65100;
+
+      border-color: #e65100;
+
+      transform: translateY(-3px);
+    }
+
+
+    /* =========================================================
+       ABOUT
+    ========================================================= */
+
+    #about {
+      background: #d85100;
+
+      color: #ffffff;
+    }
+
+    .about-text {
+      max-width: 900px;
+
+      font-size: 0.8rem;
+
+      line-height: 1.7;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 15px;
+
+      text-align: left;
+
+      opacity: 0;
+
+      transform: translateY(45px);
+
+      transition:
+        opacity 0.9s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #about.section-visible .about-text {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.15s;
+    }
+
+
+    /* =========================================================
+       VIDEO SECTION
+    ========================================================= */
+
+    #video-section {
+      background: #000000;
+    }
+
+    .background-video {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      z-index: -2;
+
+      opacity: 0.7;
+
+      transition:
+        transform 1.5s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        opacity 1s ease;
+    }
+
+    #video-section.section-visible
+    .background-video {
+      transform: scale(1.02);
+    }
+
+    .video-overlay {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background:
+        rgba(0, 0, 0, 0.35);
+
+      z-index: -1;
+    }
+
+    .play-btn {
+      position: relative;
+
+      z-index: 3;
+
+      width: 80px;
+
+      height: 55px;
+
+      background: #ffeb3b;
+
+      border: none;
+
+      border-radius: 14px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.4);
+
+      transition:
+        transform 0.35s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .play-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .play-btn::after {
+      content: "";
+
+      border-style: solid;
+
+      border-width:
+        10px 0 10px 18px;
+
+      border-color:
+        transparent
+        transparent
+        transparent
+        #000000;
+    }
+
+
+    /* =========================================================
+       OFFERINGS
+    ========================================================= */
+
+    #offerings {
+      background: #0d3b66;
+    }
+
+    .diamond-grid {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      gap: 15px;
+
+      max-width: 850px;
+
+      margin-top: 20px;
+
+      opacity: 0;
+
+      transform: translateY(45px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #offerings.section-visible .diamond-grid {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.18s;
+    }
+
+    .diamond-card {
+      width: 130px;
+
+      height: 130px;
+
+      background: #ffc107;
+
+      color: #000000;
+
+      transform: rotate(45deg);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin: 25px;
+
+      font-weight: bold;
+
+      font-size: 0.85rem;
+
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.3);
+
+      transition:
+        transform 0.5s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .diamond-card:hover {
+      transform:
+        rotate(45deg)
+        scale(1.08);
+    }
+
+    .diamond-card-content {
+      transform: rotate(-45deg);
+
+      text-align: center;
+
+      padding: 10px;
+    }
+
+
+    /* =========================================================
+       BRANDS
+    ========================================================= */
+
+    #brands {
+      background: #0d3b66;
+
+      color: #ffffff;
+    }
+
+    #brands .section-heading {
+      color: #ffffff;
+    }
+
+    .slider-container {
+      width: 100%;
+
+      max-width: 1000px;
+
+      overflow: hidden;
+
+      position: relative;
+
+      margin: 25px 0 35px;
+
+      opacity: 0;
+
+      transform: translateY(45px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #brands.section-visible .slider-container {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.15s;
+    }
+
+    .slider-container::before,
+    .slider-container::after {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+
+      width: 80px;
+
+      height: 100%;
+
+      z-index: 2;
+
+      pointer-events: none;
+    }
+
+    .slider-container::before {
+      left: 0;
+
+      background:
+        linear-gradient(
+          to right,
+          #0d3b66,
+          transparent
+        );
+    }
+
+    .slider-container::after {
+      right: 0;
+
+      background:
+        linear-gradient(
+          to left,
+          #0d3b66,
+          transparent
+        );
+    }
+
+    .brand-track {
+      display: flex;
+
+      gap: 20px;
+
+      width: max-content;
+
+      animation:
+        scroll 25s linear infinite;
+    }
+
+    .brand-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+
+    }
+
+    .brand-box {
+      background: #ffffff;
+
+      width: 180px;
+
+      height: 80px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 6px;
+
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.2);
+
+      flex-shrink: 0;
+
+      padding: 12px;
+
+      text-decoration: none;
+
+      transition:
+        transform 0.45s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        background 0.3s ease;
+    }
+
+    .brand-box img {
+      max-width: 100%;
+
+      max-height: 100%;
+
+      object-fit: contain;
+    }
+
+    .brand-box:hover {
+      transform:
+        translateY(-7px)
+        scale(1.02);
+
+      background: #f8f9fa;
+    }
+
+    .director-box {
+      margin-top: 10px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 20px;
+
+      max-width: 700px;
+
+      text-align: left;
+
+      opacity: 0;
+
+      transform: translateY(35px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #brands.section-visible .director-box {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.3s;
+    }
+
+    .director-img {
+      width: 100px;
+
+      height: 100px;
+
+      background: #ffc107;
+
+      transform: rotate(45deg);
+
+      overflow: hidden;
+
+      flex-shrink: 0;
+
+      border: 2px solid #ffffff;
+    }
+
+    .director-img img {
+      width: 140%;
+
+      height: 140%;
+
+      transform:
+        rotate(-45deg)
+        translate(-15%, -15%);
+
+      object-fit: cover;
+    }
+
+
+    /* =========================================================
+       TEAM
+    ========================================================= */
+
+    #team {
+      background: #d85100;
+    }
+
+    #team .section-heading {
+      font-size: 2.8rem;
+
+      font-weight: 900;
+
+      line-height: 1.05;
+
+      max-width: 800px;
+
+      margin-bottom: 25px;
+    }
+
+    .team-grid-container {
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      gap: 20px;
+
+      max-width: 1000px;
+
+      margin: 0 auto;
+
+      opacity: 0;
+
+      transform: translateY(45px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #team.section-visible
+    .team-grid-container {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.18s;
+    }
+
+    .team-row {
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 40px;
+    }
+
+    .diamond-wrapper {
+      width: 190px;
+
+      height: 190px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+    .team-diamond {
+      width: 175px;
+
+      height: 175px;
+
+      transform: rotate(45deg);
+
+      border: 4px solid #000000;
+
+      overflow: hidden;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.35);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.5s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        box-shadow 0.5s ease;
+
+      text-decoration: none;
+
+      display: block;
+    }
+
+    .team-diamond:hover {
+      transform:
+        rotate(45deg)
+        scale(1.07);
+
+      box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .team-diamond-inner {
+      width: 100%;
+
+      height: 100%;
+
+      position: relative;
+    }
+
+    .team-diamond img {
+      width: 142%;
+
+      height: 142%;
+
+      object-fit: cover;
+
+      transform:
+        rotate(-45deg)
+        translate(-15%, -15%);
+
+      transition:
+        opacity 0.3s ease;
+    }
+
+    .team-diamond-overlay {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      background:
+        rgba(0, 0, 0, 0.85);
+
+      opacity: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      transition:
+        opacity 0.3s ease;
+    }
+
+    .team-diamond-text {
+      transform: rotate(-45deg);
+
+      color: #ffffff;
+
+      text-align: center;
+
+      padding: 12px;
+    }
+
+    .team-diamond-text strong {
+      display: block;
+
+      font-size: 1.05rem;
+
+      line-height: 1.25;
+
+      color: #ffc107;
+
+      text-transform: uppercase;
+
+      margin-bottom: 4px;
+    }
+
+    .team-diamond-text small {
+      font-size: 0.8rem;
+
+      color: #eeeeee;
+    }
+
+    .team-diamond:hover img {
+      opacity: 0.2;
+    }
+
+    .team-diamond:hover
+    .team-diamond-overlay {
+      opacity: 1;
+    }
+
+
+    /* =========================================================
+       SUBSIDIARIES
+    ========================================================= */
+
+    #subsidiaries {
+      background: #0d3b66;
+
+      padding: 60px 20px;
+    }
+
+    .master-portfolio-container {
+      max-width: 950px;
+
+      width: 100%;
+
+      background:
+        rgba(255, 255, 255, 0.05);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.15);
+
+      border-radius: 12px;
+
+      padding: 30px;
+
+      backdrop-filter: blur(10px);
+
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4);
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 25px;
+
+      opacity: 0;
+
+      transform: translateY(45px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #subsidiaries.section-visible
+    .master-portfolio-container {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.2s;
+    }
+
+    .portfolio-header-content h3 {
+      font-size: 1.5rem;
+
+      color: #ffc107;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      margin-bottom: 8px;
+    }
+
+    .portfolio-header-content p {
+      font-size: 0.85rem;
+
+      color: #e0e0e0;
+
+      max-width: 700px;
+
+      margin: 0 auto;
+
+      line-height: 1.5;
+    }
+
+    .subsidiary-grid-mini {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
+      gap: 12px;
+    }
+
+    .sub-badge {
+      background: #ffffff;
+
+      color: #0d3b66;
+
+      padding: 12px 8px;
+
+      border-radius: 6px;
+
+      font-weight: 800;
+
+      font-size: 0.72rem;
+
+      text-transform: uppercase;
+
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.2);
+
+      transition:
+        transform 0.45s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        background 0.3s ease;
+    }
+
+    .sub-badge span {
+      font-size: 0.6rem;
+
+      font-weight: 600;
+
+      color: #555555;
+    }
+
+    .sub-badge:hover {
+      transform:
+        translateY(-7px)
+        scale(1.02);
+
+      background: #ffc107;
+
+      color: #000000;
+    }
+
+    .portfolio-actions {
+      display: flex;
+
+      justify-content: center;
+
+      gap: 15px;
+
+      margin-top: 5px;
+    }
+
+    .btn-master-action {
+      background: #d85100;
+
+      color: #ffffff;
+
+      border: none;
+
+      padding: 14px 28px;
+
+      border-radius: 6px;
+
+      font-weight: bold;
+
+      font-size: 0.85rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      cursor: pointer;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      box-shadow:
+        0 6px 20px rgba(216, 81, 0, 0.4);
+
+      transition:
+        transform 0.35s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        filter 0.3s ease,
+
+        box-shadow 0.3s ease;
+
+      text-decoration: none;
+    }
+
+    .btn-master-action.secondary {
+      background: transparent;
+
+      border: 2px solid #ffffff;
+    }
+
+    .btn-master-action:hover {
+      transform: translateY(-3px);
+
+      filter: brightness(1.1);
+
+      box-shadow:
+        0 10px 25px
+        rgba(216, 81, 0, 0.6);
+    }
+
+
+    /* =========================================================
+       PROFILE MODAL
+    ========================================================= */
+
+    .profile-modal-overlay {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100vw;
+      height: 100vh;
+
+      background:
+        rgba(0, 0, 0, 0.85);
+
+      z-index: 3000;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition:
+        opacity 0.45s
+        cubic-bezier(0.22, 1, 0.36, 1);
+
+      backdrop-filter: blur(5px);
+    }
+
+    .profile-modal-overlay.active {
+      opacity: 1;
+
+      pointer-events: auto;
+    }
+
+    .profile-modal-card {
+      background: #1e2530;
+
+      width: 90%;
+
+      max-width: 800px;
+
+      max-height: 85vh;
+
+      border-radius: 12px;
+
+      border: 2px solid #ffc107;
+
+      display: flex;
+
+      flex-direction: column;
+
+      overflow: hidden;
+
+      transform:
+        translateY(25px)
+        scale(0.94);
+
+      opacity: 0;
+
+      transition:
+        transform 0.5s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        opacity 0.4s ease;
+
+      box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.6);
+
+      text-align: left;
+    }
+
+    .profile-modal-overlay.active
+    .profile-modal-card {
+      transform:
+        translateY(0)
+        scale(1);
+
+      opacity: 1;
+    }
+
+    .modal-header {
+      background: #0d3b66;
+
+      padding: 20px 25px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-header h3 {
+      color: #ffffff;
+
+      font-size: 1.2rem;
+
+      letter-spacing: 1px;
+    }
+
+    .modal-close {
+      background: transparent;
+
+      border: none;
+
+      color: #ffffff;
+
+      font-size: 1.5rem;
+
+      cursor: pointer;
+
+      font-weight: bold;
+    }
+
+    .modal-body {
+      padding: 25px;
+
+      overflow-y: auto;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 20px;
+
+      font-size: 0.85rem;
+
+      line-height: 1.6;
+
+      color: #dcdcdc;
+    }
+
+    .modal-section-title {
+      color: #ffc107;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      font-size: 0.9rem;
+
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.1);
+
+      padding-bottom: 5px;
+
+      margin-top: 10px;
+    }
+
+    .modal-footer {
+      padding: 15px 25px;
+
+      background: #151a22;
+
+      display: flex;
+
+      justify-content: flex-end;
+
+      gap: 12px;
+
+      border-top:
+        1px solid rgba(255, 255, 255, 0.1);
+    }
+
+
+    /* =========================================================
+       PROJECTS
+    ========================================================= */
+
+    #projects {
+      background: #1a1e24;
+    }
+
+    .filter-tabs {
+      display: flex;
+
+      gap: 15px;
+
+      margin-bottom: 20px;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      opacity: 0;
+
+      transform: translateY(35px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #projects.section-visible .filter-tabs {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.12s;
+    }
+
+    .tab-btn {
+      background: transparent;
+
+      border: 1px solid #777777;
+
+      color: #ffffff;
+
+      padding: 8px 20px;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: #d85100;
+
+      border-color: #d85100;
+
+      transform: translateY(-2px);
+    }
+
+
+    /* =========================================================
+       PROJECT GALLERY
+    ========================================================= */
+
+    .gallery-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 12px;
+
+      max-width: 850px;
+
+      width: 100%;
+
+      opacity: 0;
+
+      transform: translateY(35px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #projects.section-visible .gallery-grid {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.25s;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+
+      height: 180px;
+
+      object-fit: cover;
+
+      display: block;
+
+      border-radius: 6px;
+
+      opacity: 0;
+
+      transform:
+        scale(0.94)
+        translateY(20px);
+
+      transition:
+        opacity 0.7s ease,
+
+        transform 0.8s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gallery-grid.images-visible img {
+      opacity: 1;
+
+      transform:
+        scale(1)
+        translateY(0);
+    }
+
+    .gallery-grid.images-visible img:nth-child(1) {
+      transition-delay: 0.05s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(2) {
+      transition-delay: 0.10s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(3) {
+      transition-delay: 0.15s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(4) {
+      transition-delay: 0.20s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(5) {
+      transition-delay: 0.25s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(6) {
+      transition-delay: 0.30s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(7) {
+      transition-delay: 0.35s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(8) {
+      transition-delay: 0.40s;
+    }
+
+    .gallery-grid.images-visible img:nth-child(9) {
+      transition-delay: 0.45s;
+    }
+
+    .gallery-grid img:hover {
+      transform:
+        scale(1.03);
+
+      opacity: 0.9;
+    }
+
+
+    /* =========================================================
+       CONTACT
+    ========================================================= */
+
+    #contact {
+      background: #142850;
+    }
+
+    .gobobo-contact-container {
+      width: 100%;
+
+      max-width: 1100px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 70px;
+
+      text-align: left;
+
+      opacity: 0;
+
+      transform: translateY(45px);
+
+      transition:
+        opacity 0.9s ease,
+
+        transform 1s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #contact.section-visible
+    .gobobo-contact-container {
+      opacity: 1;
+
+      transform: translateY(0);
+
+      transition-delay: 0.15s;
+    }
+
+    .gobobo-contact-left {
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+    }
+
+    .mail-opening {
+      width: 100px;
+
+      height: 80px;
+
+      position: relative;
+
+      margin-bottom: 30px;
+    }
+
+    .mail-top {
+      position: absolute;
+
+      width: 100px;
+
+      height: 70px;
+
+      background: #ffc107;
+
+      clip-path:
+        polygon(
+          0 0,
+          50% 50%,
+          100% 0,
+          100% 100%,
+          0 100%
+        );
+    }
+
+    .mail-paper {
+      position: absolute;
+
+      width: 70px;
+
+      height: 55px;
+
+      background: #ffffff;
+
+      top: 12px;
+
+      left: 15px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      color: #142850;
+
+      font-size: 1.5rem;
+
+      z-index: 2;
+    }
+
+    .mail-bottom {
+      position: absolute;
+
+      width: 100px;
+
+      height: 70px;
+
+      border-bottom:
+        35px solid #d85100;
+
+      border-left:
+        50px solid transparent;
+
+      border-right:
+        50px solid transparent;
+
+      bottom: 0;
+
+      z-index: 3;
+    }
+
+    .contact-label {
+      color: #ffc107;
+
+      font-size: 0.8rem;
+
+      font-weight: bold;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 15px;
+    }
+
+    .gobobo-contact-left h2 {
+      font-size: 3.5rem;
+
+      line-height: 1;
+
+      text-transform: uppercase;
+
+      margin-bottom: 25px;
+    }
+
+    .gobobo-contact-left h2 span {
+      color: #d85100;
+    }
+
+    .gobobo-contact-left p {
+      color: #cbd5e1;
+
+      line-height: 1.7;
+
+      max-width: 500px;
+
+      margin-bottom: 25px;
+    }
+
+    .main-email {
+      color: #ffffff;
+
+      font-size: 1.2rem;
+
+      font-weight: bold;
+
+      text-decoration: none;
+
+      border-bottom:
+        1px solid #ffc107;
+
+      display: inline-flex;
+
+      width: fit-content;
+
+      gap: 10px;
+
+      padding-bottom: 5px;
+
+      transition:
+        transform 0.4s
+        cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .main-email:hover {
+      transform: translateX(6px);
+    }
+
+    .gobobo-contact-right h3 {
+      font-size: 1.3rem;
+
+      margin-bottom: 20px;
+
+      text-transform: uppercase;
+
+      color: #ffc107;
+    }
+
+    .gobobo-contact-links {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 15px;
+
+      margin-bottom: 30px;
+    }
+
+    .gobobo-contact-links a,
+    .contact-address {
+      color: #ffffff;
+
+      text-decoration: none;
+
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 12px;
+
+      font-size: 0.9rem;
+
+      line-height: 1.5;
+    }
+
+    .contact-icon {
+      color: #ffc107;
+
+      min-width: 20px;
+    }
+
+    .gobobo-form-title {
+      margin-top: 20px;
+    }
+
+    .gobobo-contact-form {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 12px;
+    }
+
+    .gobobo-contact-form input,
+    .gobobo-contact-form textarea {
+      width: 100%;
+
+      padding: 13px;
+
+      background: #0b1d3a;
+
+      border:
+        1px solid #304a70;
+
+      color: #ffffff;
+
+      border-radius: 5px;
+
+      outline: none;
+
+      font-family: inherit;
+    }
+
+    .gobobo-contact-form input:focus,
+    .gobobo-contact-form textarea:focus {
+      border-color: #ffc107;
+    }
+
+    .gobobo-contact-form textarea {
+      resize: vertical;
+
+      min-height: 120px;
+    }
+
+    .gobobo-contact-form button {
+      background: #d85100;
+
+      color: #ffffff;
+
+      border: none;
+
+      padding: 14px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      border-radius: 5px;
+
+      transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+    }
+
+    .gobobo-contact-form button:hover {
+      background: #e65100;
+
+      transform: translateY(-2px);
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 768px) {
+
+      html {
+        scroll-snap-type: none;
+      }
+
+      section {
+        min-height: auto;
+
+        padding: 100px 20px;
+
+        scroll-snap-align: none;
+
+        opacity: 0.4;
+
+        transform: scale(0.99);
+
+        transition:
+          opacity 0.8s ease,
+
+          transform 0.9s
+          cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      section.section-visible {
+        opacity: 1;
+
+        transform: scale(1);
+      }
+
+      .top-nav {
+        padding: 15px 20px;
+      }
+
+      .top-nav ul {
+        display: none;
+      }
+
+      .side-nav {
+        display: none;
+      }
+
+
+      /* HERO */
+
+      .hero-logo-wrapper {
+        width: 350px;
+        height: 200px;
+
+        margin-bottom: 5px;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .section-heading {
+        font-size: 2rem;
+      }
+
+      .about-text {
+        font-size: 0.85rem;
+      }
+
+      .diamond-grid {
+        gap: 5px;
+      }
+
+      .diamond-card {
+        width: 100px;
+
+        height: 100px;
+
+        margin: 20px;
+
+        font-size: 0.7rem;
+      }
+
+      .director-box {
+        flex-direction: column;
+
+        text-align: center;
+      }
+
+      .team-row {
+        flex-wrap: wrap;
+
+        gap: 10px;
+      }
+
+      #team .section-heading {
+        font-size: 2rem;
+      }
+
+      .subsidiary-grid-mini {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .portfolio-actions {
+        flex-direction: column;
+      }
+
+      .btn-master-action {
+        justify-content: center;
+      }
+
+
+      /* PROJECT GALLERY */
+
+      .gallery-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+
+        gap: 10px;
+
+        max-width: 650px;
+      }
+
+      .gallery-grid img {
+        width: 100%;
+
+        height: 140px;
+
+        object-fit: cover;
+      }
+
+
+      /* CONTACT */
+
+      .gobobo-contact-container {
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+      }
+
+      .gobobo-contact-left h2 {
+        font-size: 2.5rem;
+      }
+
+    }
+
+
+    /* =========================================================
+       SMALL MOBILE
+    ========================================================= */
+
+    @media (max-width: 480px) {
+
+      .hero-logo-wrapper {
+        width: 280px;
+        height: 160px;
+
+        margin-bottom: 0;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .section-heading {
+        font-size: 1.7rem;
+      }
+
+      .diamond-card {
+        width: 85px;
+
+        height: 85px;
+
+        margin: 15px;
+
+        font-size: 0.6rem;
+      }
+
+      .team-diamond {
+        width: 140px;
+
+        height: 140px;
+      }
+
+      .diamond-wrapper {
+        width: 155px;
+
+        height: 155px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+        width: 100%;
+      }
+
+      .gallery-grid img {
+        width: 100%;
+
+        height: 160px;
+
+        object-fit: cover;
+      }
+
+      .subsidiary-grid-mini {
+        grid-template-columns: 1fr;
+      }
+
+      .gobobo-contact-left h2 {
+        font-size: 2.2rem;
+      }
+
+    }
+
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+
+        animation-duration:
+          0.01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          0.01ms !important;
+
+        scroll-behavior:
+          auto !important;
+      }
+
+      section,
+      section .section-heading,
+      .about-text,
+      .diamond-grid,
+      .slider-container,
+      .director-box,
+      .team-grid-container,
+      .master-portfolio-container,
+      .filter-tabs,
+      .gallery-grid,
+      .gobobo-contact-container,
+      .hero-content,
+      .hero-logo,
+      .hero-title,
+      .btn-learn {
+
+        opacity: 1 !important;
+
+        transform: none !important;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================================================
+       TOP NAVIGATION
+  ========================================================= -->
+
+  <header class="top-nav">
+
+    <a href="#hero" class="logo">
+      
+    </a>
+
+    <ul>
+
+      <li>
+        <a href="#hero">Home</a>
+      </li>
+
+      <li>
+        <a href="#about">About Us</a>
+      </li>
+
+      <li>
+        <a href="#offerings">Offerings</a>
+      </li>
+
+      <li>
+        <a href="#brands">Brands</a>
+      </li>
+
+      <li>
+        <a href="#team">Team</a>
+      </li>
+
+      <li>
+        <a href="#subsidiaries">Subsidiaries</a>
+      </li>
+
+      <li>
+        <a href="#projects">Projects</a>
+      </li>
+
+      <li>
+        <a href="#contact">Contact</a>
+      </li>
+
+    </ul>
+
+  </header>
+
+
+  <!-- =========================================================
+       SIDE DOT NAVIGATION
+  ========================================================= -->
+
+  <nav class="side-nav">
+
+    <a href="#hero" class="active"></a>
+
+    <a href="#about"></a>
+
+    <a href="#video-section"></a>
+
+    <a href="#offerings"></a>
+
+    <a href="#brands"></a>
+
+    <a href="#team"></a>
+
+    <a href="#subsidiaries"></a>
+
+    <a href="#projects"></a>
+
+    <a href="#contact"></a>
+
+  </nav>
+
+
+  <!-- =========================================================
+       SECTION 1 — HERO
+  ========================================================= -->
+
+  <section id="hero">
+
+    <video
+      class="bg-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1600&q=80"
+    >
+
+      <source
+        src="landing.mp4"
+        type="video/mp4"
+      >
+
+      Your browser does not support the video tag.
+
+    </video>
+
+
+    <div class="hero-content">
+
+      <div class="hero-logo-wrapper">
+
+        <img
+          src="Copilot.png"
+          alt="Gobobo Group Logo"
+          class="hero-logo"
+        >
+
+      </div>
+
+
+      <h1 class="hero-title">
+
+        WE ARE
+
+        <span>
+          GOBOBO TRANSPORT
+        </span>
+
+        FROM SOUTH AFRICA
+
+      </h1>
+
+
+      <a
+        href="#about"
+        class="btn-learn"
+      >
+        Learn More
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECTION 2 — ABOUT
+  ========================================================= -->
+
+  <section id="about">
+
+    <h2 class="section-heading">
+      About Us
+    </h2>
+
+
+    <div class="about-text">
+
+      <p>
+        The Gobobo Group, founded in 2012, is a diversified company with three prominent subsidiaries: Gobobo Projects, Gobobo Waste and Gobobo Energy. Under the leadership of Phillip G. Mahlangu, the company upholds the value of professionalism and has achieved success in various sectors.
+      </p>
+
+      <p>
+        Gobobo Projects, one of the subsidiaries of the Gobobo Group, has been providing exceptional services since its establishment. The company has served numerous business organizations, taxi operations, and local government entities. Gobobo Projects takes particular pride in its commitment to serving disadvantaged residents in both Tshwane and the City of Johannesburg. Thanks to Phillip G. Mahlangu's astute business acumen, the company continues to excel in its operations.
+      </p>
+
+      <p>
+        Another notable subsidiary of the Gobobo Group is Gobobo Energy, a petroleum wholesaler based in Johannesburg. This 100% black-owned and managed company has established itself as a reputable player in the industry. Gobobo Energy proudly serves esteemed clients such as Denel Aviation, Bophelong Construction, Mapitsi, Motsamai Waste, and Elangeni Cash and Carry. The core business of Gobobo Energy includes sales, marketing, supply, and distribution of various petroleum products, including petrol, diesel fuel, JetA1 fuel, AV Gas, and lubricants.
+      </p>
+
+      <p>
+        In addition to Gobobo Projects and Gobobo Energy, the Gobobo Group also encompasses Gobobo Waste, a subsidiary focused on waste management. Under the umbrella of the Gobobo Group, Gobobo Waste is dedicated to providing efficient and sustainable waste management solutions in South Africa. With a strong commitment to environmental responsibility, Gobobo Waste offers comprehensive waste management services to a diverse range of clients.
+      </p>
+
+      <p>
+        Furthermore, the Gobobo Group has expanded its portfolio to include Gobobo Farming and Gobobo Minerals. Gobobo Farming operates in the town of Heidelberg and specializes in cattle farming, with plans to expand into pig and sheep farming and establish its own butchery.
+      </p>
+
+      <p>
+        Gobobo Minerals is involved in the mining and distribution of coal. With a partnership with Transnet trains, Gobobo Minerals transports and distributes coal to various destinations, contributing to the country's energy sector.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECTION 3 — VIDEO
+  ========================================================= -->
+
+  <section id="video-section">
+
+    <video
+      id="farmVideo"
+      class="background-video"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+
+      <source
+        src="farm.mp4"
+        type="video/mp4"
+      >
+
+      Your browser does not support the video tag.
+
+    </video>
+
+
+    <div class="video-overlay"></div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECTION 4 — OFFERINGS
+  ========================================================= -->
+
+  <!--
+    Your original code did not contain the actual
+    offerings section content, so it has not been invented here.
+  -->
+
+
+  <!-- =========================================================
+       SECTION 5 — BRANDS
+  ========================================================= -->
+
+  <section id="brands">
+
+    <h2 class="section-heading">
+      We Are Proud To Be Working With These Brands
+    </h2>
+
+
+    <div class="slider-container">
+
+      <div class="brand-track">
+
+
+        <a
+          href="https://www.ekurhuleni.gov.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/city of ek.png"
+            alt="City of Ekurhuleni Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://joburg.org.za/departments_/Pages/MOEs/Pikitup.aspx"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/pikitup.jpg"
+            alt="PIKITUP Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.avisfleet.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/avis.jpeg"
+            alt="AVIS Fleet Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.denel.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/denel.png"
+            alt="Denel Aviation Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.gov.za/about-government/contact-directory/gp-municipalities/lesedi-local-municipality"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/lesedi.jpeg"
+            alt="Lesedi Local Municipality Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://mall.yep.co.za/home"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/yep.png"
+            alt="Yep Mall Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://beforedawn.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/beforedawn.png"
+            alt="Before Dawn Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.mispipelines.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/MIS.png"
+            alt="MIS Pipelines Logo"
+          >
+
+        </a>
+
+
+        <!-- DUPLICATE SET -->
+
+        <a
+          href="https://www.ekurhuleni.gov.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/city of ek.png"
+            alt="City of Ekurhuleni Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://joburg.org.za/departments_/Pages/MOEs/Pikitup.aspx"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/pikitup.jpg"
+            alt="PIKITUP Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.avisfleet.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="avis.jpeg"
+            alt="AVIS Fleet Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.denel.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/denel.png"
+            alt="Denel Aviation Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.gov.za/about-government/contact-directory/gp-municipalities/lesedi-local-municipality"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/lesedi.jpeg"
+            alt="Lesedi Local Municipality Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://mall.yep.co.za/home"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/yep.png"
+            alt="Yep Mall Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://beforedawn.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/beforedawn.png"
+            alt="Before Dawn Logo"
+          >
+
+        </a>
+
+
+        <a
+          href="https://www.mispipelines.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-box"
+        >
+
+          <img
+            src="brands/MIS.png"
+            alt="MIS Pipelines Logo"
+          >
+
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- DIRECTOR -->
+
+    <div class="director-box">
+
+      <div class="director-img">
+
+        <img
+          src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80"
+          alt="Director"
+        >
+
+      </div>
+
+
+      <div>
+
+        <p>
+          Born and raised in Daveyton, he started off with one local taxi in his 20s. Registered his company in 2012 and expanded into logistics, energy, and farming.
+        </p>
+
+        <strong
+          style="
+            margin-top: 5px;
+            display: block;
+          "
+        >
+          Philip Gobobo Mahlangu / Director
+        </strong>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECTION 6 — TEAM
+  ========================================================= -->
+
+  <section id="team">
+
+    <h2 class="section-heading">
+      WE ARE TEAM OF LIKE-MINDED PEOPLE
+    </h2>
+
+
+    <div class="team-grid-container">
+
+
+      <!-- TOP -->
+
+      <div class="team-row">
+
+        <div class="diamond-wrapper">
+
+          <div class="team-diamond">
+
+            <div class="team-diamond-inner">
+
+              <img
+                src="employees/zithobile.jpg"
+                alt="Mr Zithobile Biyane"
+              >
+
+              <div class="team-diamond-overlay">
+
+                <div class="team-diamond-text">
+
+                  <strong>
+                    Mr Zithobile Biyane
+                  </strong>
+
+                  <small>
+                    Operations & Warehouse Manager
+                  </small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MIDDLE -->
+
+      <div class="team-row">
+
+
+        <div class="diamond-wrapper">
+
+          <div class="team-diamond">
+
+            <div class="team-diamond-inner">
+
+              <img
+                src="employees/Thando.jpg"
+                alt="Noluthando Mahlangu"
+              >
+
+              <div class="team-diamond-overlay">
+
+                <div class="team-diamond-text">
+
+                  <strong>
+                    Noluthando Mahlangu
+                  </strong>
+
+                  <small>
+                    HR Manager
+                  </small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DIRECTOR -->
+
+        <div class="diamond-wrapper">
+
+          <div class="team-diamond">
+
+            <div class="team-diamond-inner">
+
+              <img
+                src="employees/Philip.jpg"
+                alt="Philip G. Mahlangu"
+              >
+
+              <div class="team-diamond-overlay">
+
+                <div class="team-diamond-text">
+
+                  <strong>
+                    Mr Philip G. Mahlangu
+                  </strong>
+
+                  <small>
+                    Director
+                  </small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="diamond-wrapper">
+
+          <div class="team-diamond">
+
+            <div class="team-diamond-inner">
+
+              <img
+                src="employees/Sifiso.jpg"
+                alt="Mr Sifiso Mahlangu"
+              >
+
+              <div class="team-diamond-overlay">
+
+                <div class="team-diamond-text">
+
+                  <strong>
+                    Mr Sifiso Mahlangu
+                  </strong>
+
+                  <small>
+                    Waste, Fleet Project Manager
+                  </small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BOTTOM -->
+
+      <div class="team-row">
+
+        <div class="diamond-wrapper">
+
+          <div class="team-diamond">
+
+            <div class="team-diamond-inner">
+
+              <img
+                src="employees/Tapi.jpg"
+                alt="Ellen Maphuma"
+              >
+
+              <div class="team-diamond-overlay">
+
+                <div class="team-diamond-text">
+
+                  <strong>
+                    Ellen Maphuma
+                  </strong>
+
+                  <small>
+                    Office Manager
+                  </small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECTION 7 — SUBSIDIARIES
+  ========================================================= -->
+
+  <section id="subsidiaries">
+
+    <h2 class="section-heading">
+      Our Subsidiaries & Master Profile
+    </h2>
+
+
+    <div class="master-portfolio-container">
+
+      <div class="portfolio-header-content">
+
+        <h3>
+          Gobobo Group Integrated Enterprise Portfolio
+        </h3>
+
+        <p>
+          Access our comprehensive company profile detailing combined projects, technical capacities, and strategic operations across all specialized divisions.
+        </p>
+
+      </div>
+
+
+      <div class="subsidiary-grid-mini">
+
+        <div class="sub-badge">
+
+          Projects
+
+          <span>
+            Logistics & Civil
+          </span>
+
+        </div>
+
+
+        <div class="sub-badge">
+
+          Energy
+
+          <span>
+            Petroleum & Jet A1
+          </span>
+
+        </div>
+
+
+        <div class="sub-badge">
+
+          Waste
+
+          <span>
+            Municipal Solutions
+          </span>
+
+        </div>
+
+
+        <div class="sub-badge">
+
+          Farming
+
+          <span>
+            Livestock & Beef
+          </span>
+
+        </div>
+
+
+        <div class="sub-badge">
+
+          Minerals
+
+          <span>
+            Coal Transport
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="portfolio-actions">
+
+        <a
+          href="doc1.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-master-action"
+        >
+
+          📄 View & Download Master Profile
+
+        </a>
+
+
+        <button
+          class="btn-master-action secondary"
+          onclick="openProfileModal()"
+        >
+
+          View Summary
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       PROFILE MODAL
+  ========================================================= -->
+
+  <div
+    class="profile-modal-overlay"
+    id="profileModal"
+  >
+
+    <div class="profile-modal-card">
+
+
+      <div class="modal-header">
+
+        <h3>
+          Gobobo Group - Combined Master Profile
+        </h3>
+
+        <button
+          class="modal-close"
+          onclick="closeProfileModal()"
+        >
+          &times;
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <p>
+          Welcome to the consolidated enterprise overview of the Gobobo Group. Established in 2012 under the leadership of Phillip G. Mahlangu, our group unifies five key industries under one uncompromising standard of excellence.
+        </p>
+
+
+        <div class="modal-section-title">
+          1. Gobobo Projects
+        </div>
+
+        <p>
+          Specializes in heavy transport, logistics, storm water pipe installation, plant hire, general construction, and civil road works supporting local governments and municipal entities.
+        </p>
+
+
+        <div class="modal-section-title">
+          2. Gobobo Energy
+        </div>
+
+        <p>
+          A premier 100% black-owned petroleum wholesaler providing bulk distribution of diesel, petrol, illuminating paraffin, Jet A1 aviation fuel, and specialized lubricants for commercial, construction, and aviation clients.
+        </p>
+
+
+        <div class="modal-section-title">
+          3. Gobobo Waste
+        </div>
+
+        <p>
+          Dedicated environmental sanitation partners providing illegal dumping site cleanup, informal settlement waste management, mini disposal site maintenance, and collaborative municipal contracts with Pikitup.
+        </p>
+
+
+        <div class="modal-section-title">
+          4. Gobobo Farming & Minerals
+        </div>
+
+        <p>
+          Operating livestock facilities in Heidelberg focused on cattle rearing with upcoming butchery integration, alongside strategic railway logistics for coal distribution.
+        </p>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          class="btn-master-action secondary"
+          style="
+            padding: 8px 16px;
+            font-size: 0.75rem;
+          "
+          onclick="closeProfileModal()"
+        >
+
+          Close Window
+
+        </button>
+
+
+        <a
+          href="doc1.pdf"
+          target="_blank"
+          class="btn-master-action"
+          style="
+            padding: 8px 16px;
+            font-size: 0.75rem;
+          "
+        >
+
+          View Full PDF
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       SECTION 8 — PROJECTS
+  ========================================================= -->
+
+  <section id="projects">
+
+    <h2 class="section-heading">
+      Our Most Loved Projects
+    </h2>
+
+
+    <div class="filter-tabs">
+
+      <button
+        class="tab-btn active"
+        onclick="showImages('farm', this)"
+      >
+        FARM
+      </button>
+
+
+      <button
+        class="tab-btn"
+        onclick="showImages('projects', this)"
+      >
+        PROJECTS
+      </button>
+
+
+      <button
+        class="tab-btn"
+        onclick="showImages('energy', this)"
+      >
+        ENERGY
+      </button>
+
+
+      <button
+        class="tab-btn"
+        onclick="showImages('waste', this)"
+      >
+        WASTE
+      </button>
+
+
+      <button
+        class="tab-btn"
+        onclick="showImages('minerals', this)"
+      >
+        MINERALS
+      </button>
+
+    </div>
+
+
+    <div
+      class="gallery-grid"
+      id="gallery"
+    >
+
+
+      <!-- =====================================================
+           FARM
+      ===================================================== -->
+
+      <img
+        src="farm/1.jpg"
+        class="cat-farm"
+        alt="Cattle"
+      >
+
+      <img
+        src="farm/2.jpg"
+        class="cat-farm"
+        alt="Livestock"
+      >
+
+      <img
+        src="farm/3.jpg"
+        class="cat-farm"
+        alt="Bulls"
+      >
+
+      <img
+        src="farm/4.jpg"
+        class="cat-farm"
+        alt="Bulls"
+      >
+
+      <img
+        src="farm/5.jpg"
+        class="cat-farm"
+        alt="Bulls"
+      >
+
+      <img
+        src="farm/6.jpg"
+        class="cat-farm"
+        alt="Bulls"
+      >
+
+      <img
+        src="farm/7.jpg"
+        class="cat-farm"
+        alt="Bulls"
+      >
+
+      <img
+        src="farm/8.jpg"
+        class="cat-farm"
+        alt="Bulls"
+      >
+
+      <img
+        src="farm/6.jpg"
+        class="cat-farm"
+        alt="Bulls"
+      >
+
+
+      <!-- =====================================================
+           PROJECTS
+      ===================================================== -->
+
+      <img
+        src="projects/1.jpg"
+        class="cat-projects"
+        alt="Construction"
+        style="display: none;"
+      >
+
+      <img
+        src="projects/2.jpg"
+        class="cat-projects"
+        alt="Logistics"
+        style="display: none;"
+      >
+
+      <img
+        src="projects/3.jpg"
+        class="cat-projects"
+        alt="Logistics"
+        style="display: none;"
+      >
+
+      <img
+        src="projects/4.jpg"
+        class="cat-projects"
+        alt="Logistics"
+        style="display: none;"
+      >
+
+      <img
+        src="projects/5.jpg"
+        class="cat-projects"
+        alt="Logistics"
+        style="display: none;"
+      >
+
+      <img
+        src="projects/6.jpg"
+        class="cat-projects"
+        alt="Logistics"
+        style="display: none;"
+      >
+
+      <img
+        src="projects/7.jpg"
+        class="cat-projects"
+        alt="Logistics"
+        style="display: none;"
+      >
+
+
+      <!-- =====================================================
+           ENERGY
+      ===================================================== -->
+
+      <img
+        src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=400&q=80"
+        class="cat-energy"
+        alt="Energy"
+        style="display: none;"
+      >
+
+      <img
+        src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+      <img
+        src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+      <img
+        src="energy/1.jpg"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+      <img
+        src="energy/2.jpg"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+      <img
+        src="energy/3.jpg"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+      <img
+        src="energy/4.jpg"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+      <img
+        src="energy/5.jpg"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+      <img
+        src="energy/6.jpg"
+        class="cat-energy"
+        alt="Fuel"
+        style="display: none;"
+      >
+
+
+      <!-- =====================================================
+           WASTE
+      ===================================================== -->
+
+      <img
+        src="image/1.jpg"
+        class="cat-waste"
+        alt="Waste"
+        style="display: none;"
+      >
+
+      <img
+        src="image/2.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+      <img
+        src="image/14.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+      <img
+        src="image/14.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+      <img
+        src="image/4.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+      <img
+        src="image/5.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+      <img
+        src="image/6.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+      <img
+        src="image/7.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+      <img
+        src="image/8.jpg"
+        class="cat-waste"
+        alt="Recycling"
+        style="display: none;"
+      >
+
+
+      <!-- =====================================================
+           MINERALS
+      ===================================================== -->
+
+      <img
+        src="minerals/7.jpg"
+        class="cat-minerals"
+        alt="Mining"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/2.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/5.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/1.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/8.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/9.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/3.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/4.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+      <img
+        src="minerals/6.jpg"
+        class="cat-minerals"
+        alt="Trains"
+        style="display: none;"
+      >
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECTION 9 — CONTACT
+  ========================================================= -->
+
+  <section id="contact">
+
+    <div class="gobobo-contact-container">
+
+
+      <!-- LEFT -->
+
+      <div class="gobobo-contact-left">
+
+        <div class="mail-opening">
+
+          <div class="mail-top"></div>
+
+          <div class="mail-paper">
+            ✉
+          </div>
+
+          <div class="mail-bottom"></div>
+
+        </div>
+
+
+        <span class="contact-label">
+          GET IN TOUCH
+        </span>
+
+
+        <h2>
+
+          Let's Work
+
+          <br>
+
+          <span>
+            Together.
+          </span>
+
+        </h2>
+
+
+        <p>
+          Whether you are looking for transport, logistics, energy, waste management, farming or project solutions, the Gobobo Group team is ready to assist.
+        </p>
+
+
+        <a
+          href="mailto:info@gobobo.co.za"
+          class="main-email"
+        >
+
+          info@gobobo.co.za
+
+          <span>
+            ↗
+          </span>
+
+        </a>
+
+      </div>
+
+
+      <!-- RIGHT -->
+
+      <div class="gobobo-contact-right">
+
+        <h3>
+          Reach Out
+        </h3>
+
+
+        <div class="gobobo-contact-links">
+
+          <a href="tel:0795651223">
+
+            <span class="contact-icon">
+              📞
+            </span>
+
+            079 565 1223
+
+          </a>
+
+
+          <a href="tel:0727229494">
+
+            <span class="contact-icon">
+              📞
+            </span>
+
+            072 722 9494
+
+          </a>
+
+
+          <a href="mailto:info@gobobo.co.za">
+
+            <span class="contact-icon">
+              ✉
+            </span>
+
+            info@gobobo.co.za
+
+          </a>
+
+
+          <div class="contact-address">
+
+            <span class="contact-icon">
+              📍
+            </span>
+
+            <span>
+
+              33 Eva Road, Rynfield,
+
+              <br>
+
+              Benoni, 1500
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <h3 class="gobobo-form-title">
+          Or Send a Message
+        </h3>
+
+
+        <form
+          class="gobobo-contact-form"
+          action="https://formsubmit.co/info@gobobo.co.za"
+          method="POST"
+        >
+
+          <input
+            type="hidden"
+            name="_captcha"
+            value="false"
+          >
+
+          <input
+            type="hidden"
+            name="_subject"
+            value="New Website Inquiry - Gobobo Group"
+          >
+
+          <input
+            type="hidden"
+            name="_template"
+            value="table"
+          >
+
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+          >
+
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          >
+
+
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            required
+          >
+
+
+          <textarea
+            name="message"
+            placeholder="Tell us about your project or enquiry..."
+            rows="5"
+            required
+          ></textarea>
+
+
+          <button type="submit">
+
+            SEND MESSAGE
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================= -->
+
+  <script>
+
+
+    /* =========================================================
+       PROJECT FILTER
+    ========================================================= */
+
+    function showImages(category, button) {
+
+      const images =
+        document.querySelectorAll(
+          "#gallery img"
+        );
+
+
+      /*
+       * Hide all images.
+       */
+
+      images.forEach(function(img) {
+
+        img.style.display = "none";
+
+      });
+
+
+      /*
+       * Show selected category.
+       */
+
+      const selectedImages =
+        document.querySelectorAll(
+          ".cat-" + category
+        );
+
+
+      selectedImages.forEach(function(img) {
+
+        img.style.display = "block";
+
+      });
+
+
+      /*
+       * Update buttons.
+       */
+
+      const buttons =
+        document.querySelectorAll(
+          ".filter-tabs .tab-btn"
+        );
+
+
+      buttons.forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+      });
+
+
+      button.classList.add("active");
+
+
+      /*
+       * Restart image animation.
+       */
+
+      const gallery =
+        document.getElementById("gallery");
+
+
+      gallery.classList.remove(
+        "images-visible"
+      );
+
+
+      void gallery.offsetWidth;
+
+
+      setTimeout(function() {
+
+        gallery.classList.add(
+          "images-visible"
+        );
+
+      }, 50);
+
+    }
+
+
+    /* =========================================================
+       PROFILE MODAL
+    ========================================================= */
+
+    function openProfileModal() {
+
+      const modal =
+        document.getElementById(
+          "profileModal"
+        );
+
+
+      if (!modal) {
+        return;
+      }
+
+
+      modal.classList.add("active");
+
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+
+    function closeProfileModal() {
+
+      const modal =
+        document.getElementById(
+          "profileModal"
+        );
+
+
+      if (!modal) {
+        return;
+      }
+
+
+      modal.classList.remove("active");
+
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+
+    /* =========================================================
+       CLOSE MODAL OUTSIDE
+    ========================================================= */
+
+    window.addEventListener(
+      "click",
+      function(event) {
+
+        const modal =
+          document.getElementById(
+            "profileModal"
+          );
+
+
+        if (
+          modal &&
+          event.target === modal
+        ) {
+
+          closeProfileModal();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       ESC CLOSE MODAL
+    ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeProfileModal();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       SECTION REVEAL
+    ========================================================= */
+
+    const sections =
+      document.querySelectorAll(
+        "section"
+      );
+
+
+    const sectionObserver =
+      new IntersectionObserver(
+        function(entries) {
+
+          entries.forEach(
+            function(entry) {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "section-visible"
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.35
+        }
+      );
+
+
+    sections.forEach(
+      function(section) {
+
+        sectionObserver.observe(
+          section
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       HERO INITIAL ANIMATION
+    ========================================================= */
+
+    const hero =
+      document.getElementById(
+        "hero"
+      );
+
+
+    if (hero) {
+
+      setTimeout(
+        function() {
+
+          hero.classList.add(
+            "section-visible"
+          );
+
+        },
+        100
+      );
+
+    }
+
+
+    /* =========================================================
+       GALLERY INITIAL ANIMATION
+    ========================================================= */
+
+    const gallery =
+      document.getElementById(
+        "gallery"
+      );
+
+
+    if (gallery) {
+
+      setTimeout(
+        function() {
+
+          gallery.classList.add(
+            "images-visible"
+          );
+
+        },
+        400
+      );
+
+    }
+
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+
+    const navDots =
+      document.querySelectorAll(
+        ".side-nav a"
+      );
+
+
+    const navLinks =
+      document.querySelectorAll(
+        ".top-nav ul li a"
+      );
+
+
+    const navigationObserver =
+      new IntersectionObserver(
+        function(entries) {
+
+          entries.forEach(
+            function(entry) {
+
+              if (
+                entry.isIntersecting &&
+                entry.intersectionRatio >= 0.35
+              ) {
+
+                const current =
+                  entry.target.getAttribute(
+                    "id"
+                  );
+
+
+                /*
+                 * SIDE DOTS
+                 */
+
+                navDots.forEach(
+                  function(dot) {
+
+                    dot.classList.remove(
+                      "active"
+                    );
+
+
+                    if (
+                      dot.getAttribute(
+                        "href"
+                      ) ===
+                      "#" + current
+                    ) {
+
+                      dot.classList.add(
+                        "active"
+                      );
+
+                    }
+
+                  }
+                );
+
+
+                /*
+                 * TOP NAVIGATION
+                 */
+
+                navLinks.forEach(
+                  function(link) {
+
+                    link.classList.remove(
+                      "active-link"
+                    );
+
+
+                    if (
+                      link.getAttribute(
+                        "href"
+                      ) ===
+                      "#" + current
+                    ) {
+
+                      link.classList.add(
+                        "active-link"
+                      );
+
+                    }
+
+                  }
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: [
+            0.35,
+            0.5,
+            0.65
+          ]
+        }
+      );
+
+
+    sections.forEach(
+      function(section) {
+
+        navigationObserver.observe(
+          section
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       SMOOTH NAVIGATION
+    ========================================================= */
+
+    document.querySelectorAll(
+      'a[href^="#"]'
+    ).forEach(
+      function(link) {
+
+        link.addEventListener(
+          "click",
+          function(event) {
+
+            const targetId =
+              this.getAttribute(
+                "href"
+              );
+
+
+            if (
+              !targetId ||
+              targetId === "#"
+            ) {
+
+              return;
+
+            }
+
+
+            const target =
+              document.querySelector(
+                targetId
+              );
+
+
+            if (!target) {
+
+              return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            target.scrollIntoView({
+
+              behavior: "smooth",
+
+              block: "start"
+
+            });
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       HERO MOUSE PARALLAX
+    ========================================================= */
+
+    const heroContent =
+      document.querySelector(
+        ".hero-content"
+      );
+
+
+    if (
+      hero &&
+      heroContent &&
+      window.innerWidth > 768
+    ) {
+
+      hero.addEventListener(
+        "mousemove",
+        function(event) {
+
+          const x =
+            (
+              event.clientX /
+              window.innerWidth
+            ) - 0.5;
+
+
+          const y =
+            (
+              event.clientY /
+              window.innerHeight
+            ) - 0.5;
+
+
+          heroContent.style.transform =
+            `
+              translate(
+                ${x * 8}px,
+                ${y * 8}px
+              )
+            `;
+
+        }
+      );
+
+
+      hero.addEventListener(
+        "mouseleave",
+        function() {
+
+          heroContent.style.transform =
+            "translate(0, 0)";
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       VIDEO VISIBILITY
+    ========================================================= */
+
+    const backgroundVideos =
+      document.querySelectorAll(
+        ".background-video"
+      );
+
+
+    const videoObserver =
+      new IntersectionObserver(
+        function(entries) {
+
+          entries.forEach(
+            function(entry) {
+
+              const video =
+                entry.target;
+
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                const playPromise =
+                  video.play();
+
+
+                if (
+                  playPromise &&
+                  typeof playPromise.catch ===
+                  "function"
+                ) {
+
+                  playPromise.catch(
+                    function() {}
+                  );
+
+                }
+
+              } else {
+
+                video.pause();
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.2
+        }
+      );
+
+
+    backgroundVideos.forEach(
+      function(video) {
+
+        videoObserver.observe(
+          video
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       INITIAL NAVIGATION STATE
+    ========================================================= */
+
+    if (navDots.length > 0) {
+
+      navDots[0].classList.add(
+        "active"
+      );
+
+    }
+
+
+    if (navLinks.length > 0) {
+
+      navLinks[0].classList.add(
+        "active-link"
+      );
+
+    }
+
+
+    /* =========================================================
+       PAGE LOAD
+    ========================================================= */
+
+    window.addEventListener(
+      "load",
+      function() {
+
+        if (hero) {
+
+          hero.classList.add(
+            "section-visible"
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
