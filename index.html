@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -252,9 +253,6 @@
 
       isolation: isolate;
 
-      /*
-       * Initial transition state
-       */
       opacity: 0.35;
 
       transform: scale(0.985);
@@ -1645,9 +1643,9 @@
       grid-template-columns:
         repeat(3, 1fr);
 
-      gap: 12px;
+      gap: 14px;
 
-      max-width: 850px;
+      max-width: 950px;
 
       width: 100%;
 
@@ -1673,13 +1671,15 @@
     .gallery-grid img {
       width: 100%;
 
-      height: 180px;
+      height: 220px;
 
       object-fit: cover;
 
+      object-position: center center;
+
       display: block;
 
-      border-radius: 6px;
+      border-radius: 8px;
 
       opacity: 0;
 
@@ -2168,23 +2168,31 @@
       }
 
 
-      /* PROJECT GALLERY */
+      /* =====================================================
+         PROJECT GALLERY - TABLET / MOBILE
+      ===================================================== */
 
       .gallery-grid {
         grid-template-columns:
           repeat(2, 1fr);
 
-        gap: 10px;
+        gap: 12px;
 
-        max-width: 650px;
+        max-width: 750px;
+
+        width: 100%;
       }
 
       .gallery-grid img {
         width: 100%;
 
-        height: 140px;
+        height: 175px;
 
         object-fit: cover;
+
+        object-position: center center;
+
+        border-radius: 7px;
       }
 
 
@@ -2246,10 +2254,15 @@
         height: 155px;
       }
 
+
+      /* =====================================================
+         PROJECT GALLERY - SMALL MOBILE
+      ===================================================== */
+
       .gallery-grid {
         grid-template-columns: 1fr;
 
-        gap: 10px;
+        gap: 12px;
 
         width: 100%;
       }
@@ -2257,10 +2270,13 @@
       .gallery-grid img {
         width: 100%;
 
-        height: 160px;
+        height: 200px;
 
         object-fit: cover;
+
+        object-position: center center;
       }
+
 
       .subsidiary-grid-mini {
         grid-template-columns: 1fr;
@@ -2338,7 +2354,6 @@
   <header class="top-nav">
 
     <a href="#hero" class="logo">
-      
     </a>
 
     <ul>
@@ -2417,7 +2432,8 @@
       class="bg-video"
       autoplay
       loop
-    
+      muted
+      playsinline
     >
 
       <source
@@ -2538,16 +2554,6 @@
     <div class="video-overlay"></div>
 
   </section>
-
-
-  <!-- =========================================================
-       SECTION 4 — OFFERINGS
-  ========================================================= -->
-
-  <!--
-    Your original code did not contain the actual
-    offerings section content, so it has not been invented here.
-  -->
 
 
   <!-- =========================================================
@@ -2726,7 +2732,7 @@
         >
 
           <img
-            src="avis.jpeg"
+            src="brands/avis.jpeg"
             alt="AVIS Fleet Logo"
           >
 
@@ -2838,7 +2844,7 @@
             display: block;
           "
         >
-          Philip Gobobo Mahlangu / Director
+          Phillip Gobobo Mahlangu / Director
         </strong>
 
       </div>
@@ -2860,9 +2866,6 @@
 
 
     <div class="team-grid-container">
-
-
-      <!-- TOP -->
 
       <div class="team-row">
 
@@ -2902,10 +2905,7 @@
       </div>
 
 
-      <!-- MIDDLE -->
-
       <div class="team-row">
-
 
         <div class="diamond-wrapper">
 
@@ -2941,8 +2941,6 @@
         </div>
 
 
-        <!-- DIRECTOR -->
-
         <div class="diamond-wrapper">
 
           <div class="team-diamond">
@@ -2959,7 +2957,7 @@
                 <div class="team-diamond-text">
 
                   <strong>
-                    Mr Philip G. Mahlangu
+                    Mr Phillip G. Mahlangu
                   </strong>
 
                   <small>
@@ -3012,8 +3010,6 @@
 
       </div>
 
-
-      <!-- BOTTOM -->
 
       <div class="team-row">
 
@@ -3086,57 +3082,42 @@
       <div class="subsidiary-grid-mini">
 
         <div class="sub-badge">
-
           Projects
-
           <span>
             Logistics & Civil
           </span>
-
         </div>
 
 
         <div class="sub-badge">
-
           Energy
-
           <span>
             Petroleum & Jet A1
           </span>
-
         </div>
 
 
         <div class="sub-badge">
-
           Waste
-
           <span>
             Municipal Solutions
           </span>
-
         </div>
 
 
         <div class="sub-badge">
-
           Farming
-
           <span>
             Livestock & Beef
           </span>
-
         </div>
 
 
         <div class="sub-badge">
-
           Minerals
-
           <span>
             Coal Transport
           </span>
-
         </div>
 
       </div>
@@ -3150,9 +3131,7 @@
           rel="noopener noreferrer"
           class="btn-master-action"
         >
-
           📄 View & Download Master Profile
-
         </a>
 
 
@@ -3160,9 +3139,7 @@
           class="btn-master-action secondary"
           onclick="openProfileModal()"
         >
-
           View Summary
-
         </button>
 
       </div>
@@ -3182,7 +3159,6 @@
   >
 
     <div class="profile-modal-card">
-
 
       <div class="modal-header">
 
@@ -3255,9 +3231,7 @@
           "
           onclick="closeProfileModal()"
         >
-
           Close Window
-
         </button>
 
 
@@ -3270,9 +3244,7 @@
             font-size: 0.75rem;
           "
         >
-
           View Full PDF
-
         </a>
 
       </div>
@@ -3360,7 +3332,7 @@
       >
 
       <img
-        src="farm/3.jpg"
+        src="farm/11.jpg"
         class="cat-farm"
         alt="Bulls"
       >
@@ -3390,7 +3362,7 @@
       >
 
       <img
-        src="farm/8.jpg"
+        src="farm/10.jpg"
         class="cat-farm"
         alt="Bulls"
       >
@@ -3421,14 +3393,14 @@
       >
 
       <img
-        src="projects/3.jpg"
+        src="projects/8.jpg"
         class="cat-projects"
         alt="Logistics"
         style="display: none;"
       >
 
       <img
-        src="projects/4.jpg"
+        src="projects/9.jpg"
         class="cat-projects"
         alt="Logistics"
         style="display: none;"
@@ -3673,8 +3645,6 @@
     <div class="gobobo-contact-container">
 
 
-      <!-- LEFT -->
-
       <div class="gobobo-contact-left">
 
         <div class="mail-opening">
@@ -3714,11 +3684,11 @@
 
 
         <a
-          href="mailto:info@gobobo.co.za"
+          href="mailto: info@gobobogroup.co.za"
           class="main-email"
         >
 
-          info@gobobo.co.za
+         info@gobobogroup.co.za
 
           <span>
             ↗
@@ -3728,8 +3698,6 @@
 
       </div>
 
-
-      <!-- RIGHT -->
 
       <div class="gobobo-contact-right">
 
@@ -3894,20 +3862,12 @@
         );
 
 
-      /*
-       * Hide all images.
-       */
-
       images.forEach(function(img) {
 
         img.style.display = "none";
 
       });
 
-
-      /*
-       * Show selected category.
-       */
 
       const selectedImages =
         document.querySelectorAll(
@@ -3921,10 +3881,6 @@
 
       });
 
-
-      /*
-       * Update buttons.
-       */
 
       const buttons =
         document.querySelectorAll(
@@ -3941,10 +3897,6 @@
 
       button.classList.add("active");
 
-
-      /*
-       * Restart image animation.
-       */
 
       const gallery =
         document.getElementById("gallery");
@@ -4198,10 +4150,6 @@
                   );
 
 
-                /*
-                 * SIDE DOTS
-                 */
-
                 navDots.forEach(
                   function(dot) {
 
@@ -4226,10 +4174,6 @@
                   }
                 );
 
-
-                /*
-                 * TOP NAVIGATION
-                 */
 
                 navLinks.forEach(
                   function(link) {
@@ -4515,3 +4459,4 @@
 </body>
 
 </html>
+```
